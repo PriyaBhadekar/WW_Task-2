@@ -1,0 +1,60 @@
+package com.example.entities;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+import java.util.Set;
+
+@Entity
+public class Portfolio {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long portfolioId;
+
+    @OneToOne
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
+
+    @OneToMany(mappedBy = "portfolio")
+    private Set<Security> securities;
+
+    // Default constructor
+    public Portfolio() {
+    }
+
+    // Parameterized constructor
+    public Portfolio(Long portfolioId, Client client) {
+        this.portfolioId = portfolioId;
+        this.client = client;
+    }
+
+    // Getters and Setters
+    public Long getPortfolioId() {
+        return portfolioId;
+    }
+
+    public void setPortfolioId(Long portfolioId) {
+        this.portfolioId = portfolioId;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Set<Security> getSecurities() {
+        return securities;
+    }
+
+    public void setSecurities(Set<Security> securities) {
+        this.securities = securities;
+    }
+}
